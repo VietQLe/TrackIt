@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Button } from '../components';
+import { logout } from '../constants/firebase';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text>Home Page!</Text>
+      <Button title="Logout" onPress={() => logout()} />
       <StatusBar style="auto" />
     </View>
   );
