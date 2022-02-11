@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Input, Button } from '../components';
-import { logInWithEmailAndPassword } from '../constants/firebase';
+import { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Input, Button } from "../components";
+import { logInWithEmailAndPassword } from "../constants/firebase";
 
 const App = (props: any) => {
   const [email, setEmail] = useState<string | null>(null);
@@ -29,9 +29,9 @@ const App = (props: any) => {
         <Text style={{ marginHorizontal: 5 }}>Don't Have an Account?</Text>
         <TouchableOpacity
           style={{ marginHorizontal: 5 }}
-          onPress={() => props.navigation.navigate('signup')}
+          onPress={() => props.navigation.navigate("signup")}
         >
-          <Text style={{ color: 'rgba(81,135,200,1)' }}>Register Here</Text>
+          <Text style={{ color: "rgba(81,135,200,1)" }}>Register Here!</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -41,12 +41,12 @@ const App = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7bd5f5',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#7bd5f5",
+    alignItems: "center",
+    justifyContent: "center",
   },
   loginText: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginVertical: 20,
   },
 });
