@@ -52,7 +52,6 @@ const registerWithEmailAndPassword = async (
       authProvider: 'local',
       email,
     });
-    Alert.alert(JSON.stringify(user));
   } catch (err) {
     console.log(err);
   }
