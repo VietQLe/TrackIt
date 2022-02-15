@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Input, Button } from "../components";
 import { logInWithEmailAndPassword } from "../constants/firebase";
 
@@ -10,6 +10,8 @@ const App = (props: any) => {
   const login = () => {
     if (email && password) {
       logInWithEmailAndPassword(email, password);
+    } else {
+      Alert.alert("Missing Fields");
     }
   };
 

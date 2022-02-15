@@ -1,11 +1,11 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   getAuth,
   signOut,
-} from 'firebase/auth';
+} from "firebase/auth";
 import {
   getFirestore,
   query,
@@ -13,17 +13,16 @@ import {
   collection,
   where,
   addDoc,
-} from 'firebase/firestore';
-import { Alert } from 'react-native';
+} from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAzSK-8z2Mz5_ypsEF5B8ORWHAMQEXd9iI',
-  authDomain: 'trackit-4f7b6.firebaseapp.com',
-  projectId: 'trackit-4f7b6',
-  storageBucket: 'trackit-4f7b6.appspot.com',
-  messagingSenderId: '37622194677',
-  appId: '1:37622194677:web:84be8bc5496992c030c0bc',
-  measurementId: 'G-WKRESL9LXK',
+  apiKey: "AIzaSyAzSK-8z2Mz5_ypsEF5B8ORWHAMQEXd9iI",
+  authDomain: "trackit-4f7b6.firebaseapp.com",
+  projectId: "trackit-4f7b6",
+  storageBucket: "trackit-4f7b6.appspot.com",
+  messagingSenderId: "37622194677",
+  appId: "1:37622194677:web:84be8bc5496992c030c0bc",
+  measurementId: "G-WKRESL9LXK",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -46,10 +45,10 @@ const registerWithEmailAndPassword = async (
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, 'users'), {
+    await addDoc(collection(db, "users"), {
       uid: user.uid,
       name,
-      authProvider: 'local',
+      authProvider: "local",
       email,
     });
   } catch (err) {
@@ -62,6 +61,7 @@ const logout = () => {
 };
 
 export {
+  app,
   auth,
   registerWithEmailAndPassword,
   logInWithEmailAndPassword,

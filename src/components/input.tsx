@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, Dimensions } from 'react-native';
+import React from "react";
+import { View, TextInput, StyleSheet, Dimensions } from "react-native";
 
-const { height, width } = Dimensions.get('screen');
+const { height, width } = Dimensions.get("screen");
 
 interface Props {
   placeholder: string;
@@ -15,6 +15,7 @@ const Input = (props: Props) => {
       <TextInput
         style={styles.input}
         placeholder={props.placeholder}
+        placeholderTextColor="#999"
         secureTextEntry={props.secureTextEntry || false}
         onChangeText={props.onChangeText}
       />
@@ -25,8 +26,8 @@ const Input = (props: Props) => {
 const styles = StyleSheet.create({
   container: {
     width: width / 1.1,
-    alignSelf: 'center',
-    backgroundColor: '#e3e3e3',
+    alignSelf: "center",
+    backgroundColor: "#e3e3e3",
     borderRadius: 5,
     marginVertical: 10,
   },
