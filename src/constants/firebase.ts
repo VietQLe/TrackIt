@@ -61,6 +61,7 @@ const logout = () => {
 };
 
 export {
+  db,
   app,
   auth,
   registerWithEmailAndPassword,

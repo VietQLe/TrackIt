@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Alert, Modal } from "react-native";
 import { Input, Button } from "../components";
 import {
@@ -8,8 +8,9 @@ import {
   collection,
   where,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
-import { app, auth } from "../constants/firebase";
+import { app, auth, db } from "../constants/firebase";
 
 const App = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -20,26 +21,63 @@ const App = (props: any) => {
   const [state, setState] = useState<string | null>(null);
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const [clientsData, setClientsData] = useState<any>([]);
 
-  const db = getFirestore(app);
+  const fetchClientsList = async () => {
+    const q = query(
+      collection(db, "clients"),
+      where("userid", "==", auth.currentUser?.uid),
+      orderBy("name")
+    );
+    const doc = await getDocs(q);
+    const clientList: any = [];
+    doc.forEach((doc: any) => {
+      const data = doc.data();
+      clientList.push({ id: doc.id, ...data });
+    });
+    setClientsData(clientList);
+  };
 
   const addClient = async () => {
-    await addDoc(collection(db, "clients"), {
-      userid: auth.currentUser?.uid,
-      name,
-      address1,
-      address2,
-      city,
-      state,
-      zipCode,
-      phoneNumber,
-    });
+    if (name && address1 && city && state && zipCode && phoneNumber) {
+      try {
+        await addDoc(collection(db, "clients"), {
+          userid: auth.currentUser?.uid,
+          name,
+          address1,
+          address2,
+          city,
+          state,
+          zipCode,
+          phoneNumber,
+        });
+        fetchClientsList();
+      } catch {
+        Alert.alert("Error with adding Client");
+      }
+    }
+
     setModalVisible(!modalVisible);
   };
 
+  useEffect(() => {
+    fetchClientsList();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Clients Page!</Text>
+      <Text style={styles.title}>Clients Page!</Text>
+      <View>
+        {clientsData ? (
+          clientsData.map((item: any) => (
+            <Text key={item.id} style={styles.list}>
+              {item.name}
+            </Text>
+          ))
+        ) : (
+          <Text>No Clients available</Text>
+        )}
+      </View>
       <Button
         style={styles.floatingButton}
         title="+"
@@ -99,7 +137,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#7bd5f5",
     alignItems: "center",
-    justifyContent: "center",
+    padding: 48,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 12,
+  },
+  list: {
+    fontSize: 16,
+    lineHeight: 24,
   },
   floatingButton: {
     height: 55,
